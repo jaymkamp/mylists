@@ -3,9 +3,9 @@ import unittest
 
 class NewVisitorTest(unittest.TestCase):
  	def setUp(self):
- 		self.browser = webdriver.Firefox(executable_path = 'C:\\python_scripts\geckodriver\geckodriver.exe')
+ 		self.browser = webdriver.Firefox(executable_path = 'C:\\geckodriver\geckodriver.exe')
  		self.browser.implicitly_wait(3)
- 		
+
  	def tearDown(self):
  		self.browser.quit()
 
