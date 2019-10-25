@@ -3,7 +3,7 @@ import unittest
 
 class NewVisitorTest(unittest.TestCase):
  	def setUp(self):
- 		self.browser = webdriver.Firefox(executable_path = 'C:\\geckodriver\geckodriver.exe')
+ 		self.browser = webdriver.Firefox(executable_path = 'C:\\bin\geckodriver.exe')
  		self.browser.implicitly_wait(3)
 
  	def tearDown(self):
@@ -32,4 +32,4 @@ class NewVisitorTest(unittest.TestCase):
 		# Satisfied, she goes back to sleep
 
 if __name__ == '__main__':
- unittest.main(warnings='ignore') 
+	unittest.main(warnings='ignore') 
