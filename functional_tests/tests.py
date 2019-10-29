@@ -46,11 +46,12 @@ class NewVisitorTest(LiveServerTestCase):
 		# and now the page lists "1: Buy peacock feathers" as an item
 		# in a to-do list
 		inputbox.send_keys(Keys.ENTER)
-		edith_list_url = self.browser.current_url
 		#need to wait for page to fully load
 		WebDriverWait(self.browser, 10).until(
             expected_conditions.text_to_be_present_in_element(
                 (By.ID, 'id_list_table'), 'Buy peacock feathers'))
+		
+		edith_list_url = self.browser.current_url
 		self.assertRegex(edith_list_url, '/lists/.+')
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
 
@@ -63,7 +64,7 @@ class NewVisitorTest(LiveServerTestCase):
 
 		#need to wait for page to fully load
 		WebDriverWait(self.browser, 10).until(
-            expected_conditions.text_to_be_present_in_element(
+        	expected_conditions.text_to_be_present_in_element(
                 (By.ID, 'id_list_table'), 'Use peacock feathers to make a fly'))
 
 		# The page updates again, and now shows both items on her list
@@ -88,6 +89,11 @@ class NewVisitorTest(LiveServerTestCase):
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		inputbox.send_keys('Buy milk')
 		inputbox.send_keys(Keys.ENTER)
+		#need to wait for page to fully load
+		WebDriverWait(self.browser, 10).until(
+        	expected_conditions.text_to_be_present_in_element(
+                (By.ID, 'id_list_table'), 'Buy milk'))
+
 
 		# Francis gets his own unique URL
 		francis_list_url = self.browser.current_url
