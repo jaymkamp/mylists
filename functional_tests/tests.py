@@ -108,9 +108,3 @@ class NewVisitorTest(LiveServerTestCase):
 		# satisfied, they both go back to sleep
 		
 
-		# Edith wonders whether the site will remember her list. Then she sees
-		# that the site has generated a unique URL for her -- there is some
-		# explanatory text to that effect.
-		# She visits that URL - her to-do list is still there.
-		# Satisfied, she goes back to sleep
-		self.fail('Finish the test!')
