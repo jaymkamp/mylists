@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn server for DOMAIN
+
+[Service]
+Restart=on-failure
+User=elspeth
+WorkingDirectory=/home/jkamp/sites/DOMAIN
+EnvironmentFile=/home/jkamp/sites/DOMAIN/.env
+
+ExecStart=/home/jkamp/sites/DOMAIN/virtualenv/bin/gunicorn \
+    --bind unix:/tmp/DOMAIN.socket \
+    superlists.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
