@@ -3,7 +3,7 @@ Description=Gunicorn server for DOMAIN
 
 [Service]
 Restart=on-failure
-User=elspeth
+User=jkamp
 WorkingDirectory=/home/jkamp/sites/DOMAIN
 EnvironmentFile=/home/jkamp/sites/DOMAIN/.env
 
