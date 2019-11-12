@@ -7,7 +7,7 @@ REPO_URL = 'https://github.com/jaymkamp/mylists.git'
 
 # Automates deployment of current version of site with helper functions
 def deploy():
-	site_folder = f'/home/{env.user}/sites/{env.hos}'
+	site_folder = f'/home/{env.user}/sites/{env.host}'
 	run(f'mkdir -p {site_folder}')
 	with cd(site_folder):
 		_get_latest_source()
