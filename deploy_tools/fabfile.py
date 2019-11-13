@@ -3,6 +3,9 @@ from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/jaymkamp/mylists.git'
+env.user = "jkamp"
+env.key_filename = ["C:/Users/Jay/.ssh/id_jkamp_rsa.pem"]
+env.hosts = ["ec2-54-149-128-16.us-west-2.compute.amazonaws.com"]
 
 
 # Automates deployment of current version of site with helper functions
