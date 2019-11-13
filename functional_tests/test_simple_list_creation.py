@@ -2,28 +2,10 @@ import os
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from unittest import skip
+from .base import FunctionalTest
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-
-
-class NewVisitorTest(StaticLiveServerTestCase):
-
-
-	def setUp(self):
-		self.browser = webdriver.Firefox(executable_path = 'C:\\bin\geckodriver.exe')
-		staging_server = os.environ.get('STAGING_SERVER')
-		if staging_server:
-			self.live_server_url = 'http://' + staging_server
-
-	def tearDown(self):
-		self.browser.quit()
-
-	def check_for_row_in_list_table(self, row_text):
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertIn(row_text, [row.text for row in rows])
+class NewVisitorTest(FunctionalTest):
 
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# Edith has heard about a cool new online to-do app. She goes
@@ -51,9 +33,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		# in a to-do list
 		inputbox.send_keys(Keys.ENTER)
 		#need to wait for page to fully load
-		WebDriverWait(self.browser, 10).until(
-            expected_conditions.text_to_be_present_in_element(
-                (By.ID, 'id_list_table'), 'Buy peacock feathers'))
+		self.wait_for_row_in_list_table('1: Buy peacock feathers')
 		
 		edith_list_url = self.browser.current_url
 		self.assertRegex(edith_list_url, '/lists/.+')
@@ -67,9 +47,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		inputbox.send_keys(Keys.ENTER)
 
 		#need to wait for page to fully load
-		WebDriverWait(self.browser, 10).until(
-        	expected_conditions.text_to_be_present_in_element(
-                (By.ID, 'id_list_table'), 'Use peacock feathers to make a fly'))
+		self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
 
 		# The page updates again, and now shows both items on her list
 		self.check_for_row_in_list_table('1: Buy peacock feathers')
@@ -94,9 +72,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		inputbox.send_keys('Buy milk')
 		inputbox.send_keys(Keys.ENTER)
 		#need to wait for page to fully load
-		WebDriverWait(self.browser, 10).until(
-        	expected_conditions.text_to_be_present_in_element(
-                (By.ID, 'id_list_table'), 'Buy milk'))
+		self.wait_for_row_in_list_table('1: Buy milk')
 
 
 		# Francis gets his own unique URL
@@ -110,18 +86,4 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		self.assertIn('Buy milk', page_text)
 
 		# satisfied, they both go back to sleep
-
-	def test_layout_and_styling(self):
-		# Edith goes to the home page
-		self.browser.get(self.live_server_url)
-		self.browser.set_window_size(1024, 768)
-
-		# She notices the input box is nicely centered
-		inputbox = self.browser.find_element_by_id('id_new_item')
-		self.assertAlmostEqual(
-			inputbox.location['x'] + inputbox.size['width'] / 2,
-			512, 
-			delta = 10
-		)
 		
-
